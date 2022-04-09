@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<GridPane  fx:id="primaryGridPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ellington.PrimaryController" 
+   alignment="center" hgap="25" vgap="25" style="-fx-background-color: #154734;">
+   <children>
+      <HBox fx:id="imageBox" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="5"> 
+         <ImageView fx:id="logoImageView" GridPane.columnSpan="5"></ImageView>
+      </HBox>
+      <Label fx:id="primaryLabel" text="JSOM Inventory Database - Asset Management" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="5" 
+         style="-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 32; -fx-wrap-text:true; -fx-text-alignment: center; -fx-alignment: center; -fx-max-width:Infinity; -fx-padding: 5;" />
+      <Button fx:id="searchButton" text="Search" onAction="#switchToSearch"  GridPane.columnIndex="0" GridPane.rowIndex="2"
+         style=" -fx-pref-width: 150px; -fx-pref-height: 50px; -fx-font-size: 18; -fx-font-weight: bold;"/>
+      <Button fx:id="addButton" text="Add" onAction="#switchToAdd" GridPane.columnIndex="1" GridPane.rowIndex="2"
+         style="-fx-pref-width: 150px; -fx-pref-height: 50px; -fx-font-size: 18; -fx-font-weight: bold;"/>
+      <Button fx:id="editButton" text="Edit" onAction="#switchToEdit" GridPane.columnIndex="2" GridPane.rowIndex="2"
+         style="-fx-pref-width: 150px; -fx-pref-height: 50px; -fx-font-size: 18; -fx-font-weight: bold;"/>
+      <Button fx:id="deleteButton" text="Delete" onAction="#switchToDelete" GridPane.columnIndex="3" GridPane.rowIndex="2"
+         style="-fx-pref-width: 150px; -fx-pref-height: 50px; -fx-font-size: 18; -fx-font-weight: bold;"/>
+      <Button fx:id="displayAllButton" text="Display All" onAction="#switchToDisplayAll" GridPane.columnIndex="4" GridPane.rowIndex="2"
+         style="-fx-pref-width: 150px; -fx-pref-height: 50px; -fx-font-size: 18; -fx-font-weight: bold;"/>
+   </children>
+   <padding>
+      <Insets top="25" right="25" bottom="25" left="25"/>
+   </padding>
+</GridPane>
