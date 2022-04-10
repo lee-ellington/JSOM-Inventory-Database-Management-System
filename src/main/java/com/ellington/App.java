@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import java.io.IOException;
+import java.io.IOException; 
 
 /** Driving class of the JavaFX JSOM Inventory Database Management application. This class initializes and loads the initial scene to the user. It
  *  also defines two utility methods used throughouht the application to load appropriate scenes. 

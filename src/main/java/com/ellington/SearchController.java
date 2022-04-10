@@ -70,7 +70,7 @@ public class SearchController implements Initializable{
                 App.setRoot("results");
             }
         } catch (Exception e) { // catches exception if asset number is too big of an integer to parse as well as any other exception thrown
-            searchErrorLabel.setText("Please enter a valid asset number." +e.getMessage());
+            searchErrorLabel.setText("Please enter a valid asset number. " +e.getMessage());
         }
     }
     
