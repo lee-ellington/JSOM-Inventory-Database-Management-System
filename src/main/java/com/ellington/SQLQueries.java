@@ -15,6 +15,8 @@ import javafx.collections.FXCollections;
 public class SQLQueries {
     // data members to define database connection URL and user credentials
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/inventory_database";
+    private static final String DATABASE_NAME = "inventory_database";
+    private static final String DATABASE_TABLE_NAME = "inventory";
     private static final String DATABASE_USERNAME = "java_user";
     private static final String DATABASE_PASSWORD = "password";
 
@@ -30,7 +32,7 @@ public class SQLQueries {
         // try to establish a connection with the inventory database
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM inventory_database.inventory WHERE asset_number = '" + number + "';")) {
+                    "SELECT * FROM " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " WHERE asset_number = '" + number + "';")) {
 
                 ResultSet resultSet = preparedStatement.executeQuery(); // execute the query and store the results
 
@@ -65,7 +67,7 @@ public class SQLQueries {
         // try to establish a connection with the inventory database
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO inventory_database.inventory (asset_number, device_type, serial_number, owner_name, location, date_added)" +
+                "INSERT INTO " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " (asset_number, device_type, serial_number, owner_name, location, date_added)" +
                     "values(" + assetToAdd.getAssetNumber() + ", '" + assetToAdd.getDeviceType() + "', '" + assetToAdd.getSerialNumber() + 
                     "', '" + assetToAdd.getOwnerName() + "', '" + assetToAdd.getLocation() + "', '" + assetToAdd.getDateAdded() + "');")) {
     
@@ -93,7 +95,7 @@ public class SQLQueries {
         // try to establish a connection with the inventory database
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "DELETE FROM inventory_database.inventory WHERE asset_number = " + assetToDelete.getAssetNumber() + ";")) {
+                "DELETE FROM " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " WHERE asset_number = " + assetToDelete.getAssetNumber() + ";")) {
     
             deleteExecuted = preparedStatement.executeUpdate(); // execute the asset delete query to delete the user specified asset in the database
 
@@ -119,7 +121,7 @@ public class SQLQueries {
         // try to establish a connection with the inventory database
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "UPDATE inventory_database.inventory SET device_type = '" + assetToEdit.getDeviceType() + "', serial_number = '" + assetToEdit.getSerialNumber() + 
+                "UPDATE " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " SET device_type = '" + assetToEdit.getDeviceType() + "', serial_number = '" + assetToEdit.getSerialNumber() + 
                 "', owner_name = '" + assetToEdit.getOwnerName()+ "', location = '" + assetToEdit.getLocation() + "', date_added = '" + assetToEdit.getDateAdded() + 
                 "'WHERE asset_number = '" + assetToEdit.getAssetNumber() + "';")) {
     
@@ -147,7 +149,7 @@ public class SQLQueries {
         // try to establish a connection with the inventory database
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM inventory_database.inventory;")) {
+                    "SELECT * FROM " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + ";")) {
 
                 ResultSet resultSet = preparedStatement.executeQuery(); // execute the query and store the results
                 
