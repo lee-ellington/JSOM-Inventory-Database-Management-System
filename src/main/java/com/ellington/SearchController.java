@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.effect.BlurType; 
 
+// utilize a JavaFX combo box to get the choice of what to search for and add the needed MySQL queries to the SQLQueries file.
+
 /** This class is used to control what happens within the search.fxml scene. Namely, the user input for asset number to be searched for is taken and added to the
  *  workingAsset object. The supplementary results scene is then loaded to display the results to the user. 
  */
