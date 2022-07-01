@@ -30,6 +30,7 @@ public class ResultsEditController implements Initializable {
     @FXML Label editErrorLabel;
     @FXML TextField deviceTypeTextField_edit;
     @FXML TextField serialNumberTextField_edit;
+    @FXML TextField serviceTagTextField_edit;
     @FXML TextField ownerNameTextField_edit;
     @FXML TextField locationTextField_edit;
     @FXML TextField dateAddedTextField_edit;
@@ -82,25 +83,27 @@ public class ResultsEditController implements Initializable {
 
         // initialize the columns within the results table
         TableColumn<Asset, Integer> columnAssetNumber = new TableColumn<Asset, Integer>("Asset Number");
-        TableColumn<Asset, String> columnDeviceType = new TableColumn<Asset, String>("Device Type");
         TableColumn<Asset, String> columnSerialNumber = new TableColumn<Asset, String>("Serial Number");
-        TableColumn<Asset, String> columnOwnerName = new TableColumn<Asset, String>("Owner Name");
+        TableColumn<Asset, String> columnServiceTag = new TableColumn<Asset, String>("Service Tag");
+        TableColumn<Asset, String> columnDeviceDescription = new TableColumn<Asset, String>("Description");
         TableColumn<Asset, String> columnLocation = new TableColumn<Asset, String>("Location");
-        TableColumn<Asset, String> columnDateAdded = new TableColumn<Asset, String>("Date Added");
+        TableColumn<Asset, String> columnOwnerName = new TableColumn<Asset, String>("User");
+        TableColumn<Asset, String> columnDateAdded = new TableColumn<Asset, String>("Date");
   
         // adjust the height property of the TableView to show only one row (only one asset can be found via a search as implemented)
-        resultsTableView.setMaxHeight(75);
+        resultsTableView.setMinHeight(75);
 
         // set the minimum width of the colums to best fit the data being displayed. To improve this in the future have it dynamically size to the data size.
         columnAssetNumber.setMinWidth(100);
-        columnDeviceType.setMinWidth(300);
         columnSerialNumber.setMinWidth(150);
-        columnOwnerName.setMinWidth(300);
+        columnServiceTag.setMinWidth(100);
+        columnDeviceDescription.setMinWidth(300);
         columnLocation.setMinWidth(100);
+        columnOwnerName.setMinWidth(300);
         columnDateAdded.setMinWidth(125);
 
         // add the intialized columns to the TableView
-        resultsTableView.getColumns().addAll(columnAssetNumber, columnDeviceType, columnSerialNumber, columnOwnerName, columnLocation, columnDateAdded);
+        resultsTableView.getColumns().addAll(columnAssetNumber, columnSerialNumber, columnServiceTag, columnDeviceDescription, columnLocation, columnOwnerName, columnDateAdded);
 
         // query database for data on asset with entered asset number and store the success results in the assetFound variable
         try {
@@ -113,10 +116,11 @@ public class ResultsEditController implements Initializable {
 
                 // define which members of the Asset object correspond to which columns in the TableView (associate data with columns)
                 columnAssetNumber.setCellValueFactory(new PropertyValueFactory<Asset, Integer>("assetNumber"));
-                columnDeviceType.setCellValueFactory(new PropertyValueFactory<Asset, String>("deviceType"));
                 columnSerialNumber.setCellValueFactory(new PropertyValueFactory<Asset, String>("serialNumber"));
-                columnOwnerName.setCellValueFactory(new PropertyValueFactory<Asset, String>("ownerName"));
+                columnServiceTag.setCellValueFactory(new PropertyValueFactory<Asset, String>("serviceTag"));
+                columnDeviceDescription.setCellValueFactory(new PropertyValueFactory<Asset, String>("deviceDescription"));
                 columnLocation.setCellValueFactory(new PropertyValueFactory<Asset, String>("location"));
+                columnOwnerName.setCellValueFactory(new PropertyValueFactory<Asset, String>("ownerName"));
                 columnDateAdded.setCellValueFactory(new PropertyValueFactory<Asset, String>("dateAdded"));
 
                 // add the data to the table for display
@@ -151,24 +155,28 @@ public class ResultsEditController implements Initializable {
 
         try {
             // add user inputted data to the workingAsset object
-            App.workingAsset.setDeviceType(deviceTypeTextField_edit.getText());
             App.workingAsset.setSerialNumber(serialNumberTextField_edit.getText());
-            App.workingAsset.setOwnerName(ownerNameTextField_edit.getText());
+            App.workingAsset.setServiceTag(serviceTagTextField_edit.getText()); // TO DO - edit FXML to have additional text field
+            App.workingAsset.setDeviceDescription(deviceTypeTextField_edit.getText());  // TO DO - rename this appropriately once working again
             App.workingAsset.setLocation(locationTextField_edit.getText());
+            App.workingAsset.setOwnerName(ownerNameTextField_edit.getText());
             App.workingAsset.setDateAdded(dateAddedTextField_edit.getText());
 
             // database schema input validation - strings
-            if (App.workingAsset.getDeviceType().length() >= 60) {
-                throw new Exception("Asset device type length must be less than 60 characters.");
-            }
             if (App.workingAsset.getSerialNumber().length() >= 40) {
-                throw new Exception("Asset serial number length must be less than 40 characters.");
+                throw new Exception("Asset serial number length must be less than 45 characters.");
             }
-            if (App.workingAsset.getOwnerName().length() >= 50) {
-                throw new Exception("Asset owner name length must be less than 50 characters.");
+            if (App.workingAsset.getServiceTag().length() >= 45) {
+                throw new Exception("Asset service tag length must be less than 45 characters.");
             }
-            if (App.workingAsset.getLocation().length() >= 10) {
-                throw new Exception("Asset location length must be less than 10 characters.");
+            if (App.workingAsset.getDeviceDescription().length() >= 100) {
+                throw new Exception("Asset device description length must be less than 100 characters.");
+            }
+            if (App.workingAsset.getLocation().length() >= 45) {
+                throw new Exception("Asset location length must be less than 45 characters.");
+            }
+            if (App.workingAsset.getOwnerName().length() >= 100) {
+                throw new Exception("Asset owner name length must be less than 100 characters.");
             }
 
             // check to make sure the date entered follows the correct format (throws exception that is caught if it does not)

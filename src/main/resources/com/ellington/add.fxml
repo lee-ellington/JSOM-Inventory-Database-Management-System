@@ -22,25 +22,29 @@
             style="-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 18; -fx-wrap-text:true; -fx-text-alignment: right; -fx-alignment: center_right; -fx-max-width:Infinity; -fx-padding: 5;"/>
         <TextField fx:id="serialNumberTextField_add" GridPane.columnIndex="1" GridPane.rowIndex="2"
             style="-fx-pref-height: 50px; -fx-font-size: 22;"/>
-        <Label text="Owner Name" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="3"
+        <Label text="Service Tag" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="3"
             style="-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 18; -fx-wrap-text:true; -fx-text-alignment: right; -fx-alignment: center_right; -fx-max-width:Infinity; -fx-padding: 5;"/>
-        <TextField fx:id="ownerNameTextField_add" GridPane.columnIndex="1" GridPane.rowIndex="3"
+        <TextField fx:id="serviceTagTextField_add" GridPane.columnIndex="1" GridPane.rowIndex="3"
             style="-fx-pref-height: 50px; -fx-font-size: 22;"/>
-        <Label text="Location" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="4"
+        <Label text="Owner Name" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="4"
             style="-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 18; -fx-wrap-text:true; -fx-text-alignment: right; -fx-alignment: center_right; -fx-max-width:Infinity; -fx-padding: 5;"/>
-        <TextField fx:id="locationTextField_add" GridPane.columnIndex="1" GridPane.rowIndex="4"
+        <TextField fx:id="ownerNameTextField_add" GridPane.columnIndex="1" GridPane.rowIndex="4"
             style="-fx-pref-height: 50px; -fx-font-size: 22;"/>
-        <Label text="Date Added" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="5"
+        <Label text="Location" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="5"
             style="-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 18; -fx-wrap-text:true; -fx-text-alignment: right; -fx-alignment: center_right; -fx-max-width:Infinity; -fx-padding: 5;"/>
-        <TextField fx:id="dateAddedTextField_add" GridPane.columnIndex="1" GridPane.rowIndex="5"
+        <TextField fx:id="locationTextField_add" GridPane.columnIndex="1" GridPane.rowIndex="5"
             style="-fx-pref-height: 50px; -fx-font-size: 22;"/>
-        <HBox alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2" spacing="25"> 
-            <Button fx:id="executeAssetAddButton" text="Add" onAction="#add" GridPane.columnIndex="0" GridPane.rowIndex="6"
+        <Label text="Date Added" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="6"
+            style="-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 18; -fx-wrap-text:true; -fx-text-alignment: right; -fx-alignment: center_right; -fx-max-width:Infinity; -fx-padding: 5;"/>
+        <TextField fx:id="dateAddedTextField_add" GridPane.columnIndex="1" GridPane.rowIndex="6"
+            style="-fx-pref-height: 50px; -fx-font-size: 22;"/>
+        <HBox alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2" spacing="25"> 
+            <Button fx:id="executeAssetAddButton" text="Add" onAction="#add" GridPane.columnIndex="0" GridPane.rowIndex="7"
                 style="-fx-pref-width: 150px; -fx-pref-height: 50px; -fx-font-size: 18; -fx-font-weight: bold;"/>
-            <Button fx:id="primaryButton" text="Main Menu" onAction="#switchToPrimary" GridPane.columnIndex="1" GridPane.rowIndex="6"
+            <Button fx:id="primaryButton" text="Main Menu" onAction="#switchToPrimary" GridPane.columnIndex="1" GridPane.rowIndex="7"
                 style="-fx-pref-width: 150px; -fx-pref-height: 50px; -fx-font-size: 18; -fx-font-weight: bold;"/>
         </HBox>
-        <Label fx:id="userNotificationLabel_add" text="" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2"
+        <Label fx:id="userNotificationLabel_add" text="" alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.columnSpan="2"
             style="-fx-pref-width: 1000px; -fx-font-weight: bold; -fx-text-fill: #e87500; -fx-font-size: 22; -fx-wrap-text:true; -fx-text-alignment: center; -fx-alignment: center; -fx-max-width:Infinity; -fx-padding: 5;"/>
     </children>
     <padding>

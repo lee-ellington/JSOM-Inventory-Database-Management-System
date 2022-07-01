@@ -44,11 +44,12 @@ public class DisplayAllController implements Initializable  {
 
         // initialize the columns within the results table
         TableColumn<Asset, Integer> columnAssetNumber = new TableColumn<Asset, Integer>("Asset Number");
-        TableColumn<Asset, String> columnDeviceType = new TableColumn<Asset, String>("Device Type");
         TableColumn<Asset, String> columnSerialNumber = new TableColumn<Asset, String>("Serial Number");
-        TableColumn<Asset, String> columnOwnerName = new TableColumn<Asset, String>("Owner Name");
+        TableColumn<Asset, String> columnServiceTag = new TableColumn<Asset, String>("Service Tag");
+        TableColumn<Asset, String> columnDeviceDescription = new TableColumn<Asset, String>("Description");
         TableColumn<Asset, String> columnLocation = new TableColumn<Asset, String>("Location");
-        TableColumn<Asset, String> columnDateAdded = new TableColumn<Asset, String>("Date Added");
+        TableColumn<Asset, String> columnOwnerName = new TableColumn<Asset, String>("User");
+        TableColumn<Asset, String> columnDateAdded = new TableColumn<Asset, String>("Date");
 
         // initialize the observalbe list of assets to be used to store the data from the result set
         ObservableList<Asset> assetData = FXCollections.observableArrayList();
@@ -57,14 +58,15 @@ public class DisplayAllController implements Initializable  {
         resultsTableView.setMinWidth(1090);
         resultsTableView.setMinHeight(500);
         columnAssetNumber.setMinWidth(100);
-        columnDeviceType.setMinWidth(300);
         columnSerialNumber.setMinWidth(150);
-        columnOwnerName.setMinWidth(300);
+        columnServiceTag.setMinWidth(100);
+        columnDeviceDescription.setMinWidth(300);
         columnLocation.setMinWidth(100);
+        columnOwnerName.setMinWidth(300);
         columnDateAdded.setMinWidth(125);
 
         // add the intialized columns to the TableView
-        resultsTableView.getColumns().addAll(columnAssetNumber, columnDeviceType, columnSerialNumber, columnOwnerName, columnLocation, columnDateAdded);
+        resultsTableView.getColumns().addAll(columnAssetNumber, columnSerialNumber, columnServiceTag, columnDeviceDescription, columnLocation, columnOwnerName, columnDateAdded);
 
         // query database for data on all assets with currently within the database
         try {
@@ -75,10 +77,11 @@ public class DisplayAllController implements Initializable  {
 
         // define which members of the Asset object correspond to which columns in the TableView (associate data with columns)
         columnAssetNumber.setCellValueFactory(new PropertyValueFactory<Asset, Integer>("assetNumber"));
-        columnDeviceType.setCellValueFactory(new PropertyValueFactory<Asset, String>("deviceType"));
         columnSerialNumber.setCellValueFactory(new PropertyValueFactory<Asset, String>("serialNumber"));
-        columnOwnerName.setCellValueFactory(new PropertyValueFactory<Asset, String>("ownerName"));
+        columnServiceTag.setCellValueFactory(new PropertyValueFactory<Asset, String>("serviceTag"));
+        columnDeviceDescription.setCellValueFactory(new PropertyValueFactory<Asset, String>("deviceDescription"));
         columnLocation.setCellValueFactory(new PropertyValueFactory<Asset, String>("location"));
+        columnOwnerName.setCellValueFactory(new PropertyValueFactory<Asset, String>("ownerName"));
         columnDateAdded.setCellValueFactory(new PropertyValueFactory<Asset, String>("dateAdded"));
 
         // add the data to the table for display

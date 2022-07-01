@@ -14,11 +14,11 @@ import javafx.collections.FXCollections;
  */
 public class SQLQueries {
     // data members to define database connection URL and user credentials
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/inventory_database";
-    private static final String DATABASE_NAME = "inventory_database";
+    private static final String DATABASE_URL = "jdbc:mysql://10.182.131.75:3306/asset_inventory_database";
+    private static final String DATABASE_NAME = "asset_inventory_database";
     private static final String DATABASE_TABLE_NAME = "inventory";
-    private static final String DATABASE_USERNAME = "java_user";
-    private static final String DATABASE_PASSWORD = "password";
+    private static final String DATABASE_USERNAME = "assetAdmin";
+    private static final String DATABASE_PASSWORD = "greenlantern";
 
     /** This method takes in a number (asset number entered by user) and uses that to search the MySQL database for a matching asset.
      *  When found, the result set is used to add the data to the workingAsset object.
@@ -32,7 +32,7 @@ public class SQLQueries {
         // try to establish a connection with the inventory database
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " WHERE asset_number = '" + number + "';")) {
+                    "SELECT * FROM " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " WHERE assetNumber = '" + number + "';")) {
 
                 ResultSet resultSet = preparedStatement.executeQuery(); // execute the query and store the results
 
@@ -43,12 +43,13 @@ public class SQLQueries {
                     assetFound = true; // set assetFound to true to designate the asset was found within the database
                      do {
                          // since search is by asset number, the database's primary key, only one asset can ever be returned
-                        App.workingAsset.setAssetNumber(resultSet.getInt("asset_number"));
-                        App.workingAsset.setDeviceType(resultSet.getString("device_type"));
-                        App.workingAsset.setSerialNumber(resultSet.getString("serial_number"));
-                        App.workingAsset.setOwnerName(resultSet.getString("owner_name"));
+                        App.workingAsset.setAssetNumber(resultSet.getInt("assetNumber"));
+                        App.workingAsset.setSerialNumber(resultSet.getString("serialNumber"));
+                        App.workingAsset.setServiceTag(resultSet.getString("serviceTag"));
+                        App.workingAsset.setDeviceDescription(resultSet.getString("description"));
                         App.workingAsset.setLocation(resultSet.getString("location"));
-                        App.workingAsset.setDateAdded(resultSet.getString("date_added"));
+                        App.workingAsset.setOwnerName(resultSet.getString("user"));
+                        App.workingAsset.setDateAdded(resultSet.getString("date"));
                     } while (resultSet.next());
                 }
         } 
@@ -67,9 +68,9 @@ public class SQLQueries {
         // try to establish a connection with the inventory database
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " (asset_number, device_type, serial_number, owner_name, location, date_added)" +
-                    "values(" + assetToAdd.getAssetNumber() + ", '" + assetToAdd.getDeviceType() + "', '" + assetToAdd.getSerialNumber() + 
-                    "', '" + assetToAdd.getOwnerName() + "', '" + assetToAdd.getLocation() + "', '" + assetToAdd.getDateAdded() + "');")) {
+                "INSERT INTO " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " (assetNumber, serialNumber, serviceTag, Description, Location, User, Date)" +
+                    "values(" + assetToAdd.getAssetNumber() + ", '" + assetToAdd.getSerialNumber() + "', '" + assetToAdd.getServiceTag() + 
+                    "', '" + assetToAdd.getDeviceDescription() + "', '" + assetToAdd.getLocation() + "', '" + assetToAdd.getOwnerName() + "', '" + assetToAdd.getDateAdded() + "');")) {
     
             updateExecuted = preparedStatement.executeUpdate(); // execute the insert into query to add the asset to the database
             
@@ -95,7 +96,7 @@ public class SQLQueries {
         // try to establish a connection with the inventory database
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "DELETE FROM " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " WHERE asset_number = " + assetToDelete.getAssetNumber() + ";")) {
+                "DELETE FROM " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " WHERE assetNumber = " + assetToDelete.getAssetNumber() + ";")) {
     
             deleteExecuted = preparedStatement.executeUpdate(); // execute the asset delete query to delete the user specified asset in the database
 
@@ -121,9 +122,10 @@ public class SQLQueries {
         // try to establish a connection with the inventory database
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "UPDATE " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " SET device_type = '" + assetToEdit.getDeviceType() + "', serial_number = '" + assetToEdit.getSerialNumber() + 
-                "', owner_name = '" + assetToEdit.getOwnerName()+ "', location = '" + assetToEdit.getLocation() + "', date_added = '" + assetToEdit.getDateAdded() + 
-                "'WHERE asset_number = '" + assetToEdit.getAssetNumber() + "';")) {
+                "UPDATE " + DATABASE_NAME + "." + DATABASE_TABLE_NAME + " SET serialNumber = '" + assetToEdit.getSerialNumber() + "', serviceTag = '" + assetToEdit.getServiceTag() + 
+                "', description = '" + assetToEdit.getDeviceDescription()+ "', location = '" + assetToEdit.getLocation() + "', user = '" + assetToEdit.getOwnerName() +
+                "', date = '" + assetToEdit.getDateAdded() + 
+                "'WHERE assetNumber = '" + assetToEdit.getAssetNumber() + "';")) {
     
             editExecuted = preparedStatement.executeUpdate(); // execute the asset edit query to edit the user specified asset in the database
 
@@ -156,12 +158,13 @@ public class SQLQueries {
                 // add entries from the result set to the observable list of assets
                 while (resultSet.next()) {
                     Asset assetEntry = new Asset();
-                    assetEntry.setAssetNumber(resultSet.getInt("asset_number"));
-                    assetEntry.setDeviceType(resultSet.getString("device_type"));
-                    assetEntry.setSerialNumber(resultSet.getString("serial_number"));
-                    assetEntry.setOwnerName(resultSet.getString("owner_name"));
-                    assetEntry.setLocation(resultSet.getString("location"));
-                    assetEntry.setDateAdded(resultSet.getString("date_added"));
+                    App.workingAsset.setAssetNumber(resultSet.getInt("assetNumber"));
+                    App.workingAsset.setSerialNumber(resultSet.getString("serialNumber"));
+                    App.workingAsset.setServiceTag(resultSet.getString("serviceTag"));
+                    App.workingAsset.setDeviceDescription(resultSet.getString("description"));
+                    App.workingAsset.setLocation(resultSet.getString("location"));
+                    App.workingAsset.setOwnerName(resultSet.getString("user"));
+                    App.workingAsset.setDateAdded(resultSet.getString("date"));
                     
                     //Add asset to the ObservableList
                     dbData.add(assetEntry);

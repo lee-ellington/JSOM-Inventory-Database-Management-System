@@ -9,24 +9,26 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Asset {
     // private data members of class 
     private SimpleIntegerProperty assetNumber;
-    private SimpleStringProperty deviceType;
-    private SimpleStringProperty serialNumber; 
-    private SimpleStringProperty ownerName;
+    private SimpleStringProperty serialNumber;
+    private SimpleStringProperty serviceTag;
+    private SimpleStringProperty deviceDescription;
     private SimpleStringProperty location;
+    private SimpleStringProperty ownerName;
     private SimpleStringProperty dateAdded;
 
     // default constructor
     public Asset () {
-        this(0, "", "", "", "", "");
+       this(0, "", "", "", "", "", "");
     }
 
     // parameterized constructor
-    public Asset (int initialAssetNumber, String initialDeviceType, String initialSerialNumber, String initialOwnerName, String initialLocation, String initialDateAdded) {
+    public Asset (int initialAssetNumber, String initialSerialNumber, String initialServiceTag, String initialDeviceDescription, String initialLocation, String initialOwnerName,String initialDateAdded) {
         this.assetNumber = new SimpleIntegerProperty(initialAssetNumber);
-        this.deviceType = new SimpleStringProperty(initialDeviceType);
         this.serialNumber = new SimpleStringProperty(initialSerialNumber);
-        this.ownerName = new SimpleStringProperty(initialOwnerName);
+        this.serviceTag = new SimpleStringProperty(initialServiceTag);
+        this.deviceDescription = new SimpleStringProperty(initialDeviceDescription);
         this.location = new SimpleStringProperty(initialLocation);
+        this.ownerName = new SimpleStringProperty(initialOwnerName);
         this.dateAdded = new SimpleStringProperty(initialDateAdded);
     }
 
@@ -35,20 +37,24 @@ public class Asset {
         return assetNumber.get();
     }
 
-    public String getDeviceType() {
-        return deviceType.get();
-    }
-
     public String getSerialNumber() {
         return serialNumber.get();
     }
 
-    public String getOwnerName() {
-        return ownerName.get();
+    public String getServiceTag() {
+        return serviceTag.get();
+    }
+
+    public String getDeviceDescription() {
+        return deviceDescription.get();
     }
 
     public String getLocation() {
         return location.get();
+    }
+
+    public String getOwnerName() {
+        return ownerName.get();
     }
 
     public String getDateAdded() {
@@ -60,20 +66,24 @@ public class Asset {
         assetNumber.set(enteredAssetNumber);
     }
 
-    public void setDeviceType(String enteredDevice) {
-        deviceType.set(enteredDevice);
-    }
-
     public void setSerialNumber(String enteredSerialNumber) {
         serialNumber.set(enteredSerialNumber);
     }
 
-    public void setOwnerName(String enteredOwnerName) {
-        ownerName.set(enteredOwnerName);
+    public void setServiceTag(String enteredServiceTag) {
+        serviceTag.set(enteredServiceTag);
+    }
+
+    public void setDeviceDescription(String enteredDeviceDescription) {
+        deviceDescription.set(enteredDeviceDescription);
     }
 
     public void setLocation(String enteredLocation) {
         location.set(enteredLocation);
+    }
+
+    public void setOwnerName(String enteredOwnerName) {
+        ownerName.set(enteredOwnerName);
     }
 
     public void setDateAdded(String dateEntered) {

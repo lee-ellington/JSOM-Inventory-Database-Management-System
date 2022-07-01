@@ -22,6 +22,7 @@ public class AddController implements Initializable {
     @FXML TextField assetNumberTextField_add;
     @FXML TextField deviceTypeTextField_add;
     @FXML TextField serialNumberTextField_add;
+    @FXML TextField serviceTagTextField_add;
     @FXML TextField ownerNameTextField_add;
     @FXML TextField locationTextField_add;
     @FXML TextField dateAddedTextField_add;
@@ -56,6 +57,7 @@ public class AddController implements Initializable {
         assetNumberTextField_add.setEffect(dsTextField);
         deviceTypeTextField_add.setEffect(dsTextField);
         serialNumberTextField_add.setEffect(dsTextField);
+        serviceTagTextField_add.setEffect(dsTextField);
         ownerNameTextField_add.setEffect(dsTextField);
         locationTextField_add.setEffect(dsTextField);
         dateAddedTextField_add.setEffect(dsTextField);
@@ -86,24 +88,28 @@ public class AddController implements Initializable {
         try {
             // add user inputted data to the workingAsset object
             App.workingAsset.setAssetNumber(Integer.parseInt(assetNumberTextField_add.getText())); // will throw integer parsing exception if input too long
-            App.workingAsset.setDeviceType(deviceTypeTextField_add.getText());
+            App.workingAsset.setDeviceDescription(deviceTypeTextField_add.getText());
             App.workingAsset.setSerialNumber(serialNumberTextField_add.getText());
+            App.workingAsset.setServiceTag(serviceTagTextField_add.getText());
             App.workingAsset.setOwnerName(ownerNameTextField_add.getText());
             App.workingAsset.setLocation(locationTextField_add.getText());
             App.workingAsset.setDateAdded(dateAddedTextField_add.getText());
 
             // database schema input validation - strings
-            if (App.workingAsset.getDeviceType().length() >= 60) {
-                throw new Exception("Asset device type length must be less than 60 characters.");
-            }
             if (App.workingAsset.getSerialNumber().length() >= 40) {
-                throw new Exception("Asset serial number length must be less than 40 characters.");
+                throw new Exception("Asset serial number length must be less than 45 characters.");
             }
-            if (App.workingAsset.getOwnerName().length() >= 50) {
-                throw new Exception("Asset owner name length must be less than 50 characters.");
+            if (App.workingAsset.getServiceTag().length() >= 45) {
+                throw new Exception("Asset service tag length must be less than 45 characters.");
             }
-            if (App.workingAsset.getLocation().length() >= 10) {
-                throw new Exception("Asset location length must be less than 10 characters.");
+            if (App.workingAsset.getDeviceDescription().length() >= 100) {
+                throw new Exception("Asset device description length must be less than 100 characters.");
+            }
+            if (App.workingAsset.getLocation().length() >= 45) {
+                throw new Exception("Asset location length must be less than 45 characters.");
+            }
+            if (App.workingAsset.getOwnerName().length() >= 100) {
+                throw new Exception("Asset owner name length must be less than 100 characters.");
             }
 
             // check to make sure the date entered follows the correct format (throws exception that is caught if it does not)
@@ -120,11 +126,12 @@ public class AddController implements Initializable {
                 assetNumberTextField_add.setText("");
                 deviceTypeTextField_add.setText("");
                 serialNumberTextField_add.setText("");
+                serviceTagTextField_add.setText("");
                 ownerNameTextField_add.setText("");
                 locationTextField_add.setText("");
                 dateAddedTextField_add.setText("");
                 App.workingAsset.setAssetNumber(-1);
-                App.workingAsset.setDeviceType("");
+                App.workingAsset.setDeviceDescription("");
                 App.workingAsset.setSerialNumber("");
                 App.workingAsset.setOwnerName("");
                 App.workingAsset.setLocation("");
