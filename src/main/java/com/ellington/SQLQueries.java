@@ -158,13 +158,13 @@ public class SQLQueries {
                 // add entries from the result set to the observable list of assets
                 while (resultSet.next()) {
                     Asset assetEntry = new Asset();
-                    App.workingAsset.setAssetNumber(resultSet.getInt("assetNumber"));
-                    App.workingAsset.setSerialNumber(resultSet.getString("serialNumber"));
-                    App.workingAsset.setServiceTag(resultSet.getString("serviceTag"));
-                    App.workingAsset.setDeviceDescription(resultSet.getString("description"));
-                    App.workingAsset.setLocation(resultSet.getString("location"));
-                    App.workingAsset.setOwnerName(resultSet.getString("user"));
-                    App.workingAsset.setDateAdded(resultSet.getString("date"));
+                    assetEntry.setAssetNumber(resultSet.getInt("assetNumber"));
+                    assetEntry.setSerialNumber(resultSet.getString("serialNumber"));
+                    assetEntry.setServiceTag(resultSet.getString("serviceTag"));
+                    assetEntry.setDeviceDescription(resultSet.getString("description"));
+                    assetEntry.setLocation(resultSet.getString("location"));
+                    assetEntry.setOwnerName(resultSet.getString("user"));
+                    assetEntry.setDateAdded(resultSet.getString("date"));
                     
                     //Add asset to the ObservableList
                     dbData.add(assetEntry);
